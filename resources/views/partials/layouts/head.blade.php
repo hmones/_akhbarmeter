@@ -1,4 +1,3 @@
-<title>@yield('title', 'Page Title') - {{trans('layouts.nav.header')}}</title>
 <meta content="text/html; charset=UTF8" http-equiv="content-type">
 <meta content="AkhbarMeter" name="author">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -6,7 +5,7 @@
 
 @stack('styles')
 
-@if(2)
+@if(app()->getLocale() === 'ar')
     <link href="{{ asset('dist/semantic.rtl.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/rtl.css') }}" rel="stylesheet">
 @else

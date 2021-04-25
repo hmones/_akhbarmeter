@@ -1,12 +1,13 @@
 <! DOCTYPE html>
-<html {% if activeLocale=='ar'%} dir="rtl" lang="ar" {% endif %}>
+<html @if(app()->isLocale('ar')) dir="rtl" lang="ar" @endif>
 <head>
+    <title>@yield('title', 'Page Title') - {{trans('navigation.header')}}</title>
     @include('partials.layouts.head')
     {% component 'SeoFeatures' %}
 </head>
 <body class="pushable">
 <!-- Nav -->
-@include('partials.layouts.nav')
+@include('partials.layouts.navigation')
 @yield('sidebar')
 <div class="pusher">
     {% partial "social-media" %}

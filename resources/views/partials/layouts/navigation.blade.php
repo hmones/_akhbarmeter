@@ -75,17 +75,17 @@
         <div class="header">Language - اللغة</div>
         <div class="menu" tabindex="-1">
             <a class="item" data-request="onSwitchLocale" data-request-data="locale: 'ar'" href="#"><i
-                    class="eg flag"></i>عربي</a>
+                        class="eg flag"></i>عربي</a>
             <a class="item" data-request="onSwitchLocale" data-request-data="locale: 'en'" href="#"><i
-                    class="us flag"></i>English</a>
+                        class="us flag"></i>English</a>
         </div>
     </div>
 
     @guest
         <div class="item">
             <a
-                class="ui secondary button"
-                href="{{ route('login') }}">
+                    class="ui secondary button"
+                    href="{{ route('login') }}">
                 {{'page.login.title'}}
             </a>
         </div>
@@ -97,8 +97,8 @@
         </div>
         <div class="item">
             <a
-                class="ui secondary button"
-                href="{{ route('logout') }}">
+                    class="ui secondary button"
+                    href="{{ route('logout') }}">
                 {{'page.logout.title'}}
             </a>
         </div>
@@ -108,87 +108,87 @@
 
 <div class="ui top fixed borderless stackable huge pointing menu" id="mainmenu">
     <div class="ui header item logodiv">
-        <a class="logo-nav logodiv" href="{{ route('home') }}"></a>
+        <a class="logo-nav logodiv" href="{{ route('home') }}"><img src="{{asset('img/logo-ar-dark.png')}}"
+                                                                    alt="AkhbarMeter" height="40px"></a>
     </div>
-    <div class="ui dropdown item cust_menu" tabindex="0">{{'nav.about'}}
+    <div class="ui dropdown item cust_menu" tabindex="0">{{trans('navigation.about')}}
         <i class="dropdown icon"></i>
         <div class="menu" tabindex="-1">
-            <a class="link item" href="{{'navlink.aboutus'}}">{{'nav.aboutus'}}</a>
-            <a class="item" href="{{'navlink.methodology'}}"> {{'nav.methodology'}} </a>
-            <a class="item" href="{{'navlink.publishers'}}">{{'nav.publishers'}}</a>
-        <!-- <a class="item" href="{{'navlink.profiles'}}"> {{'nav.profiles'}} </a> -->
-            <a class="item" href="{{'navlink.contact'}}"> {{'nav.contact'}}</a>
+            <a class="link item" href="{{'navlink.aboutus'}}">{{trans('navigation.aboutus')}}</a>
+            <a class="item" href="{{'navlink.methodology'}}"> {{trans('navigation.methodology')}} </a>
+            <a class="item" href="{{'navlink.publishers'}}">{{trans('navigation.publishers')}}</a>
+            <a class="item" href="{{'navlink.contact'}}"> {{trans('navigation.contact')}}</a>
         </div>
     </div>
-    <div class="ui dropdown item cust_menu" tabindex="0">{{'nav.academy'}}
+    <div class="ui dropdown item cust_menu" tabindex="0">{{trans('navigation.academy')}}
         <i class="dropdown icon"></i>
         <div class="menu" tabindex="-1">
-            <a class="item" href="{{'navlink.our-topics'}}">{{'nav.our-topics'}}</a>
-            <a class="item" href="{{'navlink.research'}}">{{'nav.research'}}</a>
-            <a class="item" href="{{'navlink.opportunities'}}">{{'nav.opportunities'}}</a>
+            <a class="item" href="{{'navlink.our-topics'}}">{{trans('navigation.our-topics')}}</a>
+            <a class="item" href="{{'navlink.research'}}">{{trans('navigation.research')}}</a>
+            <a class="item" href="{{'navlink.opportunities'}}">{{trans('navigation.opportunities')}}</a>
         </div>
     </div>
-    <div class="ui dropdown item cust_menu" href="{{'navlink.news'}}" tabindex="0">{{'nav.news.title'}}
+    <div class="ui dropdown item cust_menu" href="{{'navlink.news'}}" tabindex="0">{{trans('navigation.news.title')}}
         <i class="dropdown icon"></i>
         <div class="menu" tabindex="-1">
             <a class="item" href="{{'navlink.news'}}">
-                <i class="globe teal icon"></i>{{'nav.news.all'}}
+                <i class="globe teal icon"></i>{{trans('navigation.news.all')}}
             </a>
             <a class="item" href="{{'navlink.news'}}?categories[]=1">
-                <i class="handshake outline teal icon"></i>{{'nav.news.politics'}}
+                <i class="handshake outline teal icon"></i>{{trans('navigation.news.politics')}}
             </a>
             <a class="item" href="{{'navlink.news'}}?categories[]=2">
-                <i class="chart line teal icon"></i>{{'nav.news.economics'}}
+                <i class="chart line teal icon"></i>{{trans('navigation.news.economics')}}
             </a>
             <a class="item" href="{{'navlink.news'}}?categories[]=3">
-                <i class="trophy teal icon"></i>{{'nav.news.sports'}}
+                <i class="trophy teal icon"></i>{{trans('navigation.news.sports')}}
             </a>
             <a class="item" href="{{'navlink.news'}}?categories[]=4">
-                <i class="camera teal icon"></i>{{'nav.news.arts'}}
+                <i class="camera teal icon"></i>{{trans('navigation.news.arts')}}
             </a>
             <a class="item" href="{{'navlink.news'}}?categories[]=5">
-                <i class="ambulance teal icon"></i>{{'nav.news.accidents'}}
+                <i class="ambulance teal icon"></i>{{trans('navigation.news.accidents')}}
             </a>
             <a class="item" href="{{'navlink.news'}}?categories[]=6">
-                <i class="eye teal icon"></i>{{'nav.news.misc'}}
+                <i class="eye teal icon"></i>{{trans('navigation.news.misc')}}
             </a>
             <a class="item" href="{{'navlink.news'}}?categories[]=7">
-                <i class="users teal icon"></i>{{'nav.news.local'}}
+                <i class="users teal icon"></i>{{trans('navigation.news.local')}}
             </a>
         </div>
     </div>
 
-    <a class="item cust_menu" href="{{'navlink.videos'}}">{{'nav.videos'}}</a>
+    <a class="item cust_menu" href="{{'navlink.videos'}}">{{trans('navigation.videos')}}</a>
 
     <div class="right menu">
         <div class="ui dropdown item" tabindex="0">
             <i class="us flag"></i>English <i class="dropdown icon"></i>
             <div class="menu" tabindex="-1">
-                <a class="item" data-request="onSwitchLocale" data-request-data="locale: 'ar'" href="#"><i
-                        class="eg flag"></i>عربي</a>
-                <a class="item" data-request="onSwitchLocale" data-request-data="locale: 'en'" href="#"><i
-                        class="us flag"></i>English</a>
+                <a class="item" href="{{route('locale.set', 'ar')}}"><i
+                            class="eg flag"></i>عربي</a>
+                <a class="item" href="{{route('locale.set', 'en')}}"><i
+                            class="us flag"></i>English</a>
             </div>
         </div>
         @guest
             <div class="item">
                 <a
-                    class="ui secondary button"
-                    href="{{ route('login') }}">
-                    {{'page.login.title'}}
+                        class="ui secondary button"
+                        href="{{ route('login') }}">
+                    {{trans('navigation.login')}}
                 </a>
             </div>
         @else
             <div class="item">
                 <a href="/account/">
-                    {{'nav.greet'}} , {{Auth::user()->name}}
+                    {{trans('navigation.greet')}} , {{auth()->user()->name}}
                 </a>
             </div>
             <div class="item">
                 <a
-                    class="ui secondary button"
-                    href="{{ route('logout') }}">
-                    {{'page.logout.title'}}
+                        class="ui secondary button"
+                        href="{{ route('logout') }}">
+                    {{trans('navigation.logout')}}
                 </a>
             </div>
         @endguest
