@@ -3,22 +3,22 @@
 <head>
     <title>@yield('title', 'Page Title') - {{trans('navigation.header')}}</title>
     @include('partials.layouts.head')
-    {% component 'SeoFeatures' %}
 </head>
 <body class="pushable">
-<!-- Nav -->
 @include('partials.layouts.navigation')
 @yield('sidebar')
 <div class="pusher">
-    {% partial "social-media" %}
-    {% partial "header" %}
-    <!-- Content -->
-    @yield('content')
-    {% partial "footer" %}
+    @include('partials.layouts.socialmedia')
+    @include('partials.layouts.header')
+    <br><br><br>
+    <div class="ui container">
+        @yield('content')
+    </div>
+    @include('partials.layouts.footer')
 </div>
 <script type="text/javascript" src="{{asset('dist/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('dist/semantic.min.js')}}"></script>
-{% partial 'layouts/scripts-track'%}
+@include('partials.layouts.tracking')
 @stack('scripts')
 </body>
 </html>

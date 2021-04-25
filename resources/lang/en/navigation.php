@@ -28,5 +28,9 @@ return [
     'publishers' => 'News Agencies',
     'profiles' => 'Media Analysts Profiles',
     'login' => 'Login',
-    'logout' => 'Logout'
+    'logout' => 'Logout',
+    'headers' => [
+        'follow' => 'Follow us',
+        'subscribe' => 'Subscribe to Newsletter'
+    ],
 ];

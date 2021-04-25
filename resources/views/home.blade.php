@@ -1,3 +1,4 @@
 @extends('layouts.app')
-
-<h1>{{app()->getLocale()}}</h1>
+@section('content')
+    <h1>To Do</h1>
+@endsection
