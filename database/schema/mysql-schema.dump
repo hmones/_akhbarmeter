@@ -1,0 +1,473 @@
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+DROP TABLE IF EXISTS `cairo_mediameter_publishers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_publishers` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(1000) COLLATE utf8_general_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `published` tinyint(1) NOT NULL,
+  `score` tinyint(4) DEFAULT NULL,
+  `score_at` datetime DEFAULT NULL,
+  `last_month_score` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `hashtags` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `title_xpath` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `content_xpath` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `image_xpath` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `auther_xpath` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_articles`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_articles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_articles` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `url` mediumtext COLLATE utf8_general_ci NOT NULL,
+  `title` varchar(500) COLLATE utf8_general_ci DEFAULT NULL,
+  `content` longtext COLLATE utf8_general_ci,
+  `auther` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `json` text COLLATE utf8_general_ci,
+  `thumbnail_url` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `comment` text COLLATE utf8_general_ci,
+  `active` tinyint(1) DEFAULT '0',
+  `publisher_id` bigint unsigned DEFAULT NULL,
+  `approved_by` bigint unsigned DEFAULT NULL,
+  `created_by` bigint unsigned DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `fetched_at` datetime DEFAULT NULL,
+  `approved_at` datetime DEFAULT NULL,
+  `score` int(11) DEFAULT '100',
+  `score_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `score_1` int(11) DEFAULT '100',
+  `score_2` int(11) DEFAULT '100',
+  `score_3` int(11) DEFAULT '100',
+  `fake` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `cairo_mediameter_articles_publisher_id_foreign` (`publisher_id`),
+  KEY `cairo_mediameter_articles_created_by_foreign` (`created_by`),
+  KEY `cairo_mediameter_articles_approved_by_foreign` (`approved_by`),
+  CONSTRAINT `cairo_mediameter_articles_publisher_id_foreign` FOREIGN KEY (`publisher_id`) REFERENCES `cairo_mediameter_publishers` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17893 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_reviews`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_reviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_reviews` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `comment` text COLLATE utf8_general_ci,
+  `user_id` bigint unsigned DEFAULT NULL,
+  `article_id` bigint unsigned NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `score` tinyint(4) DEFAULT NULL,
+  `score_at` datetime DEFAULT NULL,
+  `comment_ext` text COLLATE utf8_general_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cairo_mediameter_reviews_user_id_foreign` (`user_id`),
+  KEY `cairo_mediameter_reviews_article_id_foreign` (`article_id`),
+  CONSTRAINT `cairo_mediameter_reviews_article_id_foreign` FOREIGN KEY (`article_id`) REFERENCES `cairo_mediameter_articles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=28164 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_questions`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_questions` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `question` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `hint` mediumtext COLLATE utf8_general_ci,
+  `section` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `weight` smallint(6) DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `type` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT 'radio',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `label_id` int(11) NOT NULL DEFAULT '2',
+  `desc` text COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_options`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_options`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_options` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `question_id` bigint unsigned NOT NULL,
+  `option` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `hint` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `weight` int(10) unsigned NOT NULL DEFAULT '0',
+  `code` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `selected` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `desc` text COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`),
+  KEY `rq_id` (`question_id`),
+  CONSTRAINT `rq_id` FOREIGN KEY (`question_id`) REFERENCES `cairo_mediameter_questions` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_responses`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_responses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_responses` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `review_id` bigint unsigned NOT NULL,
+  `option_id` bigint unsigned NOT NULL,
+  `comment` text COLLATE utf8_general_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `anot_text` text COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`),
+  KEY `cairo_mediameter_responses_review_id_foreign` (`review_id`),
+  KEY `cairo_mediameter_responses_option_id_foreign` (`option_id`),
+  CONSTRAINT `cairo_mediameter_responses_option_id_foreign` FOREIGN KEY (`option_id`) REFERENCES `cairo_mediameter_options` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `cairo_mediameter_responses_review_id_foreign` FOREIGN KEY (`review_id`) REFERENCES `cairo_mediameter_reviews` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=571085 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_categories`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_categories` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `cat_title` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `cat_desc` text COLLATE utf8_general_ci,
+  `cat_icon` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `cat_type` varchar(10) COLLATE utf8_general_ci NOT NULL DEFAULT 'topic',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_pscores`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_pscores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_pscores` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `score_percent` int(11) NOT NULL DEFAULT '100',
+  `score_from` datetime NOT NULL,
+  `score_to` datetime NOT NULL,
+  `score_period` varchar(20) COLLATE utf8_general_ci NOT NULL DEFAULT 'week',
+  `num_articles` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `publisher_id` int(10) unsigned NOT NULL,
+  `score_1` int(11) NOT NULL DEFAULT '100',
+  `score_2` int(11) NOT NULL DEFAULT '100',
+  `score_3` int(11) NOT NULL DEFAULT '100',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=81860 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_art_cat`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_art_cat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_art_cat` (
+  `article_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`article_id`,`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_videos`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_videos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_videos` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `description` text COLLATE utf8_general_ci,
+  `link` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `category` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `tags` text COLLATE utf8_general_ci,
+  `hosted_on` varchar(100) COLLATE utf8_general_ci NOT NULL,
+  `hashtags` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_pubs`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_pubs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_pubs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `desc` text COLLATE utf8_general_ci,
+  `category` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_label`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_label`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_label` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT 'exclamation',
+  `priority` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `color` varchar(50) COLLATE utf8_general_ci NOT NULL DEFAULT 'red',
+  PRIMARY KEY (`id`),
+  KEY `cairo_mediameter_label_priority` (`priority`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_mediameter_art_label`
+--
+
+DROP TABLE IF EXISTS `cairo_mediameter_art_label`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_mediameter_art_label` (
+  `article_id` int(11) NOT NULL,
+  `label_id` int(11) NOT NULL,
+  PRIMARY KEY (`article_id`,`label_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_voting_likes`
+--
+
+DROP TABLE IF EXISTS `cairo_voting_likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_voting_likes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `article_id` int(10) unsigned NOT NULL,
+  `likes` int(11) NOT NULL DEFAULT '0',
+  `dislikes` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cairo_seo_info`
+--
+
+DROP TABLE IF EXISTS `cairo_seo_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cairo_seo_info` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `keywords` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `desc` text COLLATE utf8_general_ci,
+  `og_image_url` varchar(300) COLLATE utf8_general_ci DEFAULT NULL,
+  `og_title` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `og_url` varchar(300) COLLATE utf8_general_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `og_desc` text COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rainlab_blog_categories`
+--
+
+DROP TABLE IF EXISTS `rainlab_blog_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rainlab_blog_categories` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `description` text COLLATE utf8_general_ci,
+  `parent_id` int(10) unsigned DEFAULT NULL,
+  `nest_left` int(11) DEFAULT NULL,
+  `nest_right` int(11) DEFAULT NULL,
+  `nest_depth` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rainlab_blog_categories_slug_index` (`slug`),
+  KEY `rainlab_blog_categories_parent_id_index` (`parent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rainlab_blog_posts_categories`
+--
+
+DROP TABLE IF EXISTS `rainlab_blog_posts_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rainlab_blog_posts_categories` (
+  `post_id` int(10) unsigned NOT NULL,
+  `category_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`post_id`,`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rainlab_blog_posts`
+--
+
+DROP TABLE IF EXISTS `rainlab_blog_posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rainlab_blog_posts` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `excerpt` text COLLATE utf8_general_ci,
+  `content` longtext COLLATE utf8_general_ci,
+  `content_html` longtext COLLATE utf8_general_ci,
+  `published_at` timestamp NULL DEFAULT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `metadata` mediumtext COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`),
+  KEY `rainlab_blog_posts_user_id_index` (`user_id`),
+  KEY `rainlab_blog_posts_slug_index` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=716 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+DROP TABLE IF EXISTS `failed_jobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8 */;
+CREATE TABLE `failed_jobs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `connection` text COLLATE utf8_general_ci NOT NULL,
+  `queue` text COLLATE utf8_general_ci NOT NULL,
+  `payload` longtext COLLATE utf8_general_ci NOT NULL,
+  `exception` longtext COLLATE utf8_general_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8 */;
+CREATE TABLE `migrations` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `batch` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `password_resets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8 */;
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1);
+INSERT INTO `migrations` VALUES (2,'2014_10_12_100000_create_password_resets_table',1);
+INSERT INTO `migrations` VALUES (3,'2019_08_19_000000_create_failed_jobs_table',1);
+INSERT INTO `migrations` VALUES (4,'2021_06_10_065328_add_october_cms_tables',1);
+INSERT INTO `migrations` VALUES (5,'2021_06_10_104052_create_akhbarmeter_tables',1);
