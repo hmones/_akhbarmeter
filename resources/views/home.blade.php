@@ -287,7 +287,7 @@
             <div class="four wide column">
                 <a href="https://eu-youthaward.org/"><img alt="European Youth Award"
                                                           class="ui centered fluid image"
-                                                          src="{{asset('img/portfolio/eya.png'|theme }}"></a>
+                                                          src="{{asset('img/portfolio/eya.png') }}"></a>
             </div>
             <div class="four wide column">
                 <a href="http://www.digitalparticipationcamp.org/portfolio/akhbarmeter"><img
