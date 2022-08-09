@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Label extends Model
 {
     use HasFactory;
-    
-    protected $table = 'cairo_mediameter_labels';
+
+    protected $table = 'cairo_mediameter_label';
 }
